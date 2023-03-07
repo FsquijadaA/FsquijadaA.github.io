@@ -1,0 +1,497 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/7/2023 3:18:24 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-ISU50QM"
+  DTS:CreatorName="DESKTOP-ISU50QM\pc"
+  DTS:Description="DTS Wizard-generated package"
+  DTS:DTSID="{69A0CB87-6BA9-4EC9-BFAC-CAB3755B4011}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="22538"
+  DTS:MaxErrorCount="0"
+  DTS:ObjectName="Package1"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{1A917DA1-4BBA-47E6-8DEC-D2DA025171A5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DestinationConnectionExcel]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{7AB8D99F-91A9-4DBE-A729-E8453282EF5D}"
+      DTS:ObjectName="DestinationConnectionExcel">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pc\Desktop\diego solution\DIEGOETL - SPA CENTRO.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{61A6F204-3656-4F04-8BF7-5E0E5A70CBF3}"
+      DTS:ObjectName="SourceConnectionOLEDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-ISU50QM\MSSQLSERVER02;Initial Catalog=DB_DIEGO;Provider=SQLNCLI11;Integrated Security=SSPI;Auto Translate=false;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Tarea de SQL Preparación 1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{00217DA8-7E00-4C6E-A1F7-D82E24DFFABD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea de SQL Preparación 1"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7AB8D99F-91A9-4DBE-A729-E8453282EF5D}"
+          SQLTask:SqlStatementSource="CREATE TABLE `Reporte` (&#xA;`Sexo` Long,&#xA;`Edad` Byte,&#xA;`PromVisit` Double,&#xA;`ingresos` Double&#xA;)&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tarea Flujo de datos 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{150CA28F-38E4-48EC-B47A-BE9B32F2A83E}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea Flujo de datos 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          defaultBufferSize="3145728"
+          version="1">
+          <components>
+            <component
+              refId="Package\Tarea Flujo de datos 1\Destino - Reporte"
+              componentClassID="Microsoft.ExcelDestination"
+              contactInfo="Excel Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Excel Destination"
+              name="Destino - Reporte"
+              usesDispositions="true"
+              validateExternalMetadata="False">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Reporte</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DestinationConnectionExcel]"
+                  connectionManagerRefId="Package.ConnectionManagers[DestinationConnectionExcel]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].Columns[Sexo]"
+                      cachedDataType="i4"
+                      cachedName="Sexo"
+                      externalMetadataColumnId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].ExternalColumns[Sexo]"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[Sexo]" />
+                    <inputColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].Columns[Edad]"
+                      cachedDataType="ui1"
+                      cachedName="Edad"
+                      externalMetadataColumnId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].ExternalColumns[Edad]"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[Edad]" />
+                    <inputColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].Columns[PromVisit]"
+                      cachedDataType="r8"
+                      cachedName="PromVisit"
+                      externalMetadataColumnId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].ExternalColumns[PromVisit]"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[PromVisit]" />
+                    <inputColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].Columns[ingresos]"
+                      cachedDataType="r8"
+                      cachedName="ingresos"
+                      externalMetadataColumnId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].ExternalColumns[ingresos]"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[ingresos]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].ExternalColumns[Sexo]"
+                      dataType="i4"
+                      name="Sexo" />
+                    <externalMetadataColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].ExternalColumns[Edad]"
+                      dataType="ui1"
+                      name="Edad" />
+                    <externalMetadataColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].ExternalColumns[PromVisit]"
+                      dataType="r8"
+                      name="PromVisit" />
+                    <externalMetadataColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input].ExternalColumns[ingresos]"
+                      dataType="r8"
+                      name="ingresos" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Outputs[Excel Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Excel Destination Error Output"
+                  synchronousInputId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Outputs[Excel Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Tarea Flujo de datos 1\Destino - Reporte.Outputs[Excel Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Destino - Reporte.Outputs[Excel Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Tarea Flujo de datos 1\Destino - Reporte.Outputs[Excel Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Tarea Flujo de datos 1\Origen - Consulta"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Origen - Consulta"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT Sexo, Edad, PromVisit, ingresos
+FROM   SpaSantaTecla
+ORDER BY ingresos
+SELECT Sexo, Edad, PromVisit, ingresos
+FROM   SpaEscalon
+ORDER BY ingresos
+SELECT Sexo, Edad, PromVisit, ingresos
+FROM   SpaCentro
+ORDER BY ingresos</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[Sexo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].ExternalColumns[Sexo]"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[Sexo]"
+                      name="Sexo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[Edad]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].ExternalColumns[Edad]"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[Edad]"
+                      name="Edad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[PromVisit]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].ExternalColumns[PromVisit]"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[PromVisit]"
+                      name="PromVisit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[ingresos]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].ExternalColumns[ingresos]"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].Columns[ingresos]"
+                      name="ingresos"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].ExternalColumns[Sexo]"
+                      dataType="i4"
+                      name="Sexo" />
+                    <externalMetadataColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].ExternalColumns[Edad]"
+                      dataType="ui1"
+                      name="Edad" />
+                    <externalMetadataColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].ExternalColumns[PromVisit]"
+                      dataType="r8"
+                      name="PromVisit" />
+                    <externalMetadataColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output].ExternalColumns[ingresos]"
+                      dataType="r8"
+                      name="ingresos" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[Sexo]"
+                      dataType="i4"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[Sexo]"
+                      name="Sexo" />
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[Edad]"
+                      dataType="ui1"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[Edad]"
+                      name="Edad" />
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[PromVisit]"
+                      dataType="r8"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[PromVisit]"
+                      name="PromVisit" />
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[ingresos]"
+                      dataType="r8"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[ingresos]"
+                      name="ingresos" />
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Tarea Flujo de datos 1.Paths[OLE DB Source Output]"
+              endId="Package\Tarea Flujo de datos 1\Destino - Reporte.Inputs[Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Tarea Flujo de datos 1\Origen - Consulta.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{4D771376-C3C3-4994-B945-E013F11185CE\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{4D771376-C3C3-4994-B945-E013F11185CE}"
+      DTS:From="Package\Tarea de SQL Preparación 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{4D771376-C3C3-4994-B945-E013F11185CE}"
+      DTS:To="Package\Tarea Flujo de datos 1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="212,42.6666666666667"
+          Id="Package\Tarea de SQL Preparación 1"
+          TopLeft="5.50000000000001,5.50000000000004" />
+        <NodeLayout
+          Size="185.333333333334,42.6666666666667"
+          Id="Package\Tarea Flujo de datos 1"
+          TopLeft="18.8333333333333,108.166666666667" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[{4D771376-C3C3-4994-B945-E013F11185CE\}]"
+          TopLeft="111.5,48.1666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Tarea Flujo de datos 1">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="161.333333333334,42.6666666666667"
+          Id="Package\Tarea Flujo de datos 1\Origen - Consulta"
+          TopLeft="6.16666666666667,5.50000000000004" />
+        <NodeLayout
+          Size="162.666666666667,42.6666666666667"
+          Id="Package\Tarea Flujo de datos 1\Destino - Reporte"
+          TopLeft="5.50000000000001,108.166666666667" />
+        <EdgeLayout
+          Id="Package\Tarea Flujo de datos 1.Paths[OLE DB Source Output]"
+          TopLeft="86.8333333333333,48.1666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Tarea Flujo de datos 1\Origen - Consulta">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

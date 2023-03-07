@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.33403.129
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "FioDio", "Fiorella\FioDio.dtproj", "{BC7D1727-26C7-476B-9B2F-3E487206287B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC7D1727-26C7-476B-9B2F-3E487206287B}.Development|Default.ActiveCfg = Development
+		{BC7D1727-26C7-476B-9B2F-3E487206287B}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0721581-E745-4966-95B7-6793D56C1BCD}
+	EndGlobalSection
+EndGlobal
